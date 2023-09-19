@@ -40,15 +40,19 @@ public abstract class BaseRouteHandler implements HttpHandler {
         os.close();
     }
     protected void respond(HttpExchange exchange, JSONObject response) throws IOException {
-        exchange.sendResponseHeaders(404, response.toJSONString().getBytes().length);
+        exchange.getResponseHeaders().set("Content-Type", "application/json; charset=UTF-8");
+        exchange.sendResponseHeaders(200, 0);
+
         OutputStream os = exchange.getResponseBody();
-        os.write(response.toJSONString().getBytes());
+        os.write(response.toJSONString().getBytes("UTF-8"));
         os.close();
     }
     protected void respond(HttpExchange exchange, JSONArray response) throws IOException {
-        exchange.sendResponseHeaders(404, response.toJSONString().getBytes().length);
+        exchange.getResponseHeaders().set("Content-Type", "application/json; charset=UTF-8");
+        exchange.sendResponseHeaders(200, 0);
+
         OutputStream os = exchange.getResponseBody();
-        os.write(response.toJSONString().getBytes());
+        os.write(response.toJSONString().getBytes("UTF-8"));
         os.close();
     }
 
